@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
+
 from ..models import Post, Group
 
 
@@ -42,18 +43,17 @@ class PostsURLTests(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def test_404_url(self):
-        """ 404 """
         response = self.guest_client.get('/unexisting_page/')
         self.assertEqual(response.status_code, 404)
 
     def test_create_url(self):
-        """ create """
         response = self.authorized_client.get('/create/')
         self.assertEqual(response.status_code, 200)
 
     def test_post_edit_url(self):
-        """ post/edit """
-        response = self.author_client.get('/posts/1/edit/')
+        response = self.author_client.get(
+            f'/posts/{PostsURLTests.post.id}/edit/'
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_public_template(self):
@@ -73,5 +73,7 @@ class PostsURLTests(TestCase):
         self.assertTemplateUsed(response, 'posts/create_post.html')
 
     def test_edit_post_template(self):
-        response = self.author_client.get('/posts/1/edit/')
+        response = self.author_client.get(
+            f'/posts/{PostsURLTests.post.id}/edit/'
+        )
         self.assertTemplateUsed(response, 'posts/create_post.html')

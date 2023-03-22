@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+NUMBER_OF_CHAR_TEXT = 15
+
 
 class Group(models.Model):
     title = models.CharField('title', max_length=200)
@@ -33,7 +35,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text[:15]
+        return self.text[:NUMBER_OF_CHAR_TEXT]
 
     class Meta:
         ordering = ['-pub_date']

@@ -1,9 +1,11 @@
+import time
+
+from django import forms
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from ..models import Post, Group
-from django import forms
-import time
 
 
 User = get_user_model()
@@ -58,10 +60,14 @@ class PostViewsTest(TestCase):
     def test_pages_auth_user_correct_template(self):
         templates_pages_names = {
             'posts/create_post.html': (
-                reverse('posts:post_edit', kwargs={'post_id': '1'})
+                reverse('posts:post_edit',
+                        kwargs={'post_id': PostViewsTest.post.id}
+                        )
             ),
             'posts/post_detail.html': (
-                reverse('posts:post_detail', kwargs={'post_id': '1'})
+                reverse('posts:post_detail',
+                        kwargs={'post_id': PostViewsTest.post.id}
+                        )
             )
         }
         for template, reverse_name in templates_pages_names.items():
