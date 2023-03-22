@@ -109,6 +109,11 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.static
+static/
+.css
+css/
+
 
 # Spyder project settings
 .spyderproject
@@ -144,3 +149,9 @@ dmypy.json
 .history/
 
 .mypy_cache
+
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover 
